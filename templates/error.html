@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error {{ codigo }} — Biblioteca Escolar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+<div class="login-wrap">
+    <div class="login-card" style="text-align: center;">
+        <p class="shelf-brand login-brand">Bibliotec<span>a</span> Escolar</p>
+        <h1 style="color: var(--rose); font-size: 3rem; margin: 0.5rem 0;">{{ codigo }}</h1>
+        <p style="color: var(--ink-soft); margin-bottom: 1.5rem;">{{ mensaje }}</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al inicio</a>
+    </div>
+</div>
+</body>
+</html>

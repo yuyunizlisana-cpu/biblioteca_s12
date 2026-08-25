@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">Movimiento</p>
+<h1 style="margin-bottom: 1.5rem;">Nuevo préstamo</h1>
+
+<form method="POST" class="form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+        <label>Libro</label>
+        <select name="libro_id" required>
+            <option value="" disabled selected>Selecciona un libro</option>
+            {% for l in libros %}
+            <option value="{{ l.id }}">{{ l.titulo }} (stock: {{ l.stock }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label>Usuario</label>
+        <select name="usuario_id" required>
+            <option value="" disabled selected>Selecciona un usuario</option>
+            {% for u in usuarios %}
+            <option value="{{ u.id }}">{{ u.nombre }} — {{ u.curso }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <p class="hint">La fecha de préstamo se registra automáticamente con la fecha de hoy.</p>
+    <button type="submit" class="btn btn-primary">Registrar préstamo</button>
+    <a href="{{ url_for('listar_prestamos') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

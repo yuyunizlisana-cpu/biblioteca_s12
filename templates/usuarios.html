@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="eyebrow">Comunidad</p>
+        <h1>Usuarios</h1>
+    </div>
+    {% if rol_actual == 'administrador' %}
+    <a href="{{ url_for('crear_usuario') }}" class="btn btn-primary">+ Nuevo usuario</a>
+    {% endif %}
+</div>
+
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Curso</th>{% if rol_actual == 'administrador' %}<th>Acciones</th>{% endif %}</tr>
+    </thead>
+    <tbody>
+        {% for u in usuarios %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.curso }}</td>
+            {% if rol_actual == 'administrador' %}
+            <td>
+                <div class="actions">
+                    <a href="{{ url_for('editar_usuario', id=u.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_usuario', id=u.id) }}" onsubmit="return confirm('¿Eliminar este usuario?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="4">No hay usuarios registrados todavía.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

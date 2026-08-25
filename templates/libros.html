@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="eyebrow">Catalogo</p>
+        <h1>Libros</h1>
+    </div>
+    <a href="{{ url_for('crear_libro') }}" class="btn btn-primary">+ Nuevo libro</a>
+</div>
+
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Título</th><th>Autor</th><th>Categoría</th><th>Stock</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        {% for l in libros %}
+        <tr>
+            <td>{{ l.id }}</td>
+            <td>{{ l.titulo }}</td>
+            <td>{{ l.autor_nombre }}</td>
+            <td>{{ l.categoria }}</td>
+            <td>{{ l.stock }}</td>
+            <td>
+                <div class="actions">
+                    <a href="{{ url_for('editar_libro', id=l.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_libro', id=l.id) }}" onsubmit="return confirm('¿Eliminar este libro?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="6">No hay libros registrados todavía.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

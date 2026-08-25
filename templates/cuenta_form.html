@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">Administración</p>
+<h1 style="margin-bottom: 1.5rem;">{{ 'Editar cuenta' if cuenta else 'Nueva cuenta' }}</h1>
+
+<form method="POST" class="form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+        <label>Nombre completo</label>
+        <input type="text" name="nombre_completo" required value="{{ cuenta.nombre_completo if cuenta else '' }}">
+    </div>
+    <div class="field">
+        <label>Nombre de usuario</label>
+        <input type="text" name="usuario" required value="{{ cuenta.usuario if cuenta else '' }}">
+        <p class="hint">Entre 3 y 30 caracteres: letras, números, punto o guion bajo.</p>
+    </div>
+    <div class="field">
+        <label>Contraseña</label>
+        <input type="password" name="password" {{ 'required' if not cuenta else '' }} autocomplete="new-password">
+        <p class="hint">{{ 'Déjala en blanco para no cambiarla.' if cuenta else 'Mínimo 6 caracteres.' }}</p>
+    </div>
+    <div class="field">
+        <label>Rol</label>
+        <select name="rol" required>
+            <option value="" disabled {{ '' if cuenta else 'selected' }}>Selecciona un rol</option>
+            <option value="administrador" {% if cuenta and cuenta.rol == 'administrador' %}selected{% endif %}>Administrador</option>
+            <option value="bibliotecario" {% if cuenta and cuenta.rol == 'bibliotecario' %}selected{% endif %}>Bibliotecario</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('listar_cuentas') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

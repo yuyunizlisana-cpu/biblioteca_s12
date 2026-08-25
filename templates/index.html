@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">Panel general</p>
+<h1>Cómo va tu estante hoy</h1>
+
+<div class="stat-grid" style="margin-top: 1.75rem;">
+    <div class="stat-card">
+        <p class="label">Libros</p>
+        <p class="number">{{ total_libros }}</p>
+    </div>
+    <div class="stat-card">
+        <p class="label">Autores</p>
+        <p class="number">{{ total_autores }}</p>
+    </div>
+    <div class="stat-card">
+        <p class="label">Usuarios</p>
+        <p class="number">{{ total_usuarios }}</p>
+    </div>
+    <div class="stat-card">
+        <p class="label">Préstamos activos</p>
+        <p class="number">{{ prestamos_activos }}</p>
+    </div>
+</div>
+
+<p style="margin-top: 2rem; color: var(--ink-soft);">Usa el estante de la izquierda para moverte entre autores, libros, usuarios y préstamos.</p>
+{% endblock %}

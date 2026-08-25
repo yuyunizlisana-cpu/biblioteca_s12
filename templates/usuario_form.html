@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">Comunidad</p>
+<h1 style="margin-bottom: 1.5rem;">{{ 'Editar usuario' if usuario else 'Nuevo usuario' }}</h1>
+
+<form method="POST" class="form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required maxlength="100" value="{{ usuario.nombre if usuario else '' }}">
+    </div>
+    <div class="field">
+        <label>Curso</label>
+        <input type="text" name="curso" maxlength="40" value="{{ usuario.curso if usuario else '' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('listar_usuarios') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

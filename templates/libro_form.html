@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">Catalogo</p>
+<h1 style="margin-bottom: 1.5rem;">{{ 'Editar libro' if libro else 'Nuevo libro' }}</h1>
+
+<form method="POST" class="form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+        <label>Título</label>
+        <input type="text" name="titulo" required maxlength="150" value="{{ libro.titulo if libro else '' }}">
+    </div>
+    <div class="field">
+        <label>Autor</label>
+        <select name="autor_id" required>
+            <option value="" disabled {{ '' if libro else 'selected' }}>Selecciona un autor</option>
+            {% for a in autores %}
+            <option value="{{ a.id }}" {% if libro and (libro.autor_id|string) == (a.id|string) %}selected{% endif %}>{{ a.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label>Categoría</label>
+        <input type="text" name="categoria" maxlength="60" value="{{ libro.categoria if libro else '' }}">
+    </div>
+    <div class="field">
+        <label>Stock</label>
+        <input type="number" name="stock" min="0" required value="{{ libro.stock if libro else 1 }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('listar_libros') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

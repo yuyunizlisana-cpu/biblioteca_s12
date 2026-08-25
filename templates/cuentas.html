@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="eyebrow">Administración</p>
+        <h1>Cuentas del sistema</h1>
+    </div>
+    <a href="{{ url_for('crear_cuenta') }}" class="btn btn-primary">+ Nueva cuenta</a>
+</div>
+
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Nombre completo</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        {% for c in cuentas %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.nombre_completo }}</td>
+            <td>{{ c.usuario }}</td>
+            <td>
+                {% if c.rol == 'administrador' %}
+                    <span class="badge badge-gold">Administrador</span>
+                {% else %}
+                    <span class="badge badge-sage">Bibliotecario</span>
+                {% endif %}
+            </td>
+            <td>
+                <div class="actions">
+                    <a href="{{ url_for('editar_cuenta', id=c.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_cuenta', id=c.id) }}" onsubmit="return confirm('¿Eliminar esta cuenta?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="5">No hay cuentas registradas todavía.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

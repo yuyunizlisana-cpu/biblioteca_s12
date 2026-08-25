@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="eyebrow">Movimiento</p>
+        <h1>Préstamos</h1>
+    </div>
+    <a href="{{ url_for('crear_prestamo') }}" class="btn btn-primary">+ Nuevo préstamo</a>
+</div>
+
+<div class="table-wrap">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th><th>Libro</th><th>Usuario</th><th>Fecha préstamo</th>
+            <th>Fecha devolución</th><th>Estado</th><th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in prestamos %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.libro_titulo }}</td>
+            <td>{{ p.usuario_nombre }}</td>
+            <td>{{ p.fecha_prestamo }}</td>
+            <td>{{ p.fecha_devolucion or '—' }}</td>
+            <td>
+                {% if p.estado == 'Prestado' %}
+                    <span class="badge badge-gold">Prestado</span>
+                {% else %}
+                    <span class="badge badge-sage">Devuelto</span>
+                {% endif %}
+            </td>
+            <td>
+                <div class="actions">
+                    {% if p.estado == 'Prestado' %}
+                    <form method="POST" action="{{ url_for('devolver_prestamo', id=p.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-secondary btn-sm">Marcar devuelto</button>
+                    </form>
+                    {% endif %}
+                    <form method="POST" action="{{ url_for('eliminar_prestamo', id=p.id) }}" onsubmit="return confirm('¿Eliminar este préstamo?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="7">No hay préstamos registrados todavía.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,314 @@
+/* ============================================================
+   Biblioteca Escolar — sistema de diseño propio
+   Concepto: "Estante de biblioteca" — la navegación se ve
+   como libros apoyados en un estante.
+   ============================================================ */
+
+:root {
+  --blush: #FCEEF3;
+  --paper: #FFFFFF;
+  --ink: #1F0C16;
+  --ink-soft: #5A3A47;
+  --wine: #4A1830;
+  --wine-light: #6C2748;
+  --rose: #9C3459;
+  --rose-soft: #E9B7C6;
+  --gold: #C98A2E;
+  --gold-bg: #F6DCC3;
+  --gold-ink: #7A4A12;
+  --sage: #5F7A5B;
+  --sage-bg: #DCEBD8;
+  --sage-ink: #33502E;
+  --shadow: 0 6px 20px rgba(74, 24, 48, 0.10);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--blush);
+  color: var(--ink);
+  font-family: 'Work Sans', -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, .display-font {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  color: var(--wine);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: 2rem; margin: 0 0 .25rem; }
+
+.eyebrow {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--rose);
+  margin: 0 0 .5rem;
+}
+
+a { color: var(--rose); }
+
+/* ---------- Layout general: estante lateral + página ---------- */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.shelf {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--wine);
+  padding: 2rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.shelf-brand {
+  color: var(--blush);
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1.75rem .5rem;
+}
+.shelf-brand span { color: var(--gold); }
+
+.shelf-books {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* Cada enlace de navegacion = un "lomo de libro" con leve
+   inclinacion, como si estuvieran apoyados en un estante. */
+.book-link {
+  display: block;
+  text-decoration: none;
+  color: var(--blush);
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 4px 10px 10px 4px;
+  border-left: 6px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease;
+  background: var(--wine-light);
+}
+.book-link:nth-child(1) { transform: rotate(-1.2deg); background: #7A2E52; border-left-color: var(--gold); }
+.book-link:nth-child(2) { transform: rotate(0.8deg);  background: #6C2748; border-left-color: var(--rose-soft); }
+.book-link:nth-child(3) { transform: rotate(-0.6deg); background: #833158; border-left-color: var(--sage); }
+.book-link:nth-child(4) { transform: rotate(1deg);    background: #5E2140; border-left-color: var(--gold); }
+.book-link:nth-child(5) { transform: rotate(-0.9deg); background: #712C4C; border-left-color: var(--rose-soft); }
+.book-link:nth-child(6) { transform: rotate(0.7deg);  background: #4A1F38; border-left-color: var(--sage); }
+
+/* ---------- Usuario actual / logout ---------- */
+.shelf-user {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  margin: 0 0 1.25rem .5rem;
+}
+.shelf-user-name { color: var(--blush); font-weight: 600; font-size: 0.9rem; margin: 0; }
+.shelf-user-role { color: var(--gold); font-size: 0.78rem; margin: 2px 0 0; text-transform: uppercase; letter-spacing: .04em; }
+
+.logout-form { margin-top: 1rem; }
+.btn-logout {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--blush);
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.btn-logout:hover { background: rgba(255,255,255,0.1); }
+
+/* ---------- Login ---------- */
+.login-body {
+  background: var(--blush);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+.login-wrap { padding: 1.5rem; width: 100%; max-width: 420px; }
+.login-card {
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+}
+.login-brand { color: var(--wine); font-size: 1.6rem; text-align: center; margin-bottom: 0.25rem; }
+.login-card .eyebrow { text-align: center; margin-bottom: 1.5rem; }
+.login-hint { font-size: 0.8rem; color: var(--ink-soft); text-align: center; margin-top: 1.25rem; }
+
+.book-link:hover, .book-link.active {
+  transform: rotate(0deg) translateX(4px);
+  box-shadow: var(--shadow);
+}
+
+.shelf-line {
+  height: 6px;
+  background: linear-gradient(90deg, var(--gold), var(--rose-soft));
+  border-radius: 3px;
+  margin-top: 1.25rem;
+  opacity: .6;
+}
+
+/* ---------- Contenido principal ---------- */
+.page {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  max-width: 1100px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+
+.btn-primary { background: var(--rose); color: #fff; }
+.btn-secondary { background: var(--paper); color: var(--ink-soft); border: 1px solid var(--rose-soft); }
+.btn-danger { background: #fff; color: #A32424; border: 1px solid #E8B9B9; }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.82rem; }
+
+/* ---------- Tarjetas de estadisticas (inicio) ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.stat-card {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--rose);
+}
+.stat-card:nth-child(2) { border-top-color: var(--gold); }
+.stat-card:nth-child(3) { border-top-color: var(--sage); }
+.stat-card:nth-child(4) { border-top-color: var(--wine-light); }
+.stat-card .label { color: var(--ink-soft); font-size: 0.85rem; text-transform: uppercase; letter-spacing: .04em; }
+.stat-card .number { font-family: 'Fraunces', serif; font-size: 2.4rem; color: var(--wine); font-weight: 600; }
+
+/* ---------- Tablas ---------- */
+.table-wrap {
+  background: var(--paper);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--rose-soft); }
+th {
+  text-align: left;
+  font-family: 'Fraunces', serif;
+  font-size: 0.85rem;
+  color: var(--wine);
+  padding: 0.9rem 1.1rem;
+  border-bottom: 2px solid var(--rose);
+}
+td {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid #EACBD8;
+  color: var(--ink);
+  font-weight: 500;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #FFF8FA; }
+.empty-row td { text-align: center; color: var(--ink-soft); font-style: italic; padding: 2rem; font-weight: 400; }
+
+/* Columna de acciones: botones bien separados, nunca pegados */
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Insignias de estado ---------- */
+.badge { display: inline-block; padding: .3rem .7rem; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+.badge-gold { background: var(--gold-bg); color: var(--gold-ink); }
+.badge-sage { background: var(--sage-bg); color: var(--sage-ink); }
+
+/* ---------- Formularios ---------- */
+.form-card {
+  background: var(--paper);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  max-width: 460px;
+}
+label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--wine); margin-bottom: .3rem; }
+.field { margin-bottom: 1.1rem; }
+input[type=text], input[type=number], input[type=password], select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid var(--rose-soft);
+  border-radius: 8px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--blush);
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px rgba(156, 52, 89, 0.15);
+}
+.hint { color: var(--ink-soft); font-size: 0.85rem; margin: -.3rem 0 1rem; }
+
+/* ---------- Mensajes flash ---------- */
+.flash {
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-left: 5px solid;
+}
+.flash-success { background: var(--sage-bg); color: var(--sage-ink); border-color: var(--sage); }
+.flash-info    { background: #F1E6EC; color: var(--wine); border-color: var(--rose-soft); }
+.flash-danger  { background: #FBE3E3; color: #A32424; border-color: #D97B7B; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .layout { flex-direction: column; }
+  .shelf { width: 100%; flex-direction: row; overflow-x: auto; padding: 1rem; align-items: center; }
+  .shelf-brand { margin: 0 1rem 0 0; }
+  .shelf-books { flex-direction: row; }
+  .shelf-line { display: none; }
+  .page { padding: 1.5rem; }
+}
+
+/* ---------- Accesibilidad: foco visible ---------- */
+a:focus-visible, button:focus-visible, .btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
