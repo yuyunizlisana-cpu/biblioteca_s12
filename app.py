@@ -1,14 +1,7 @@
 """
 Sistema de Gestion de Biblioteca Escolar
-Aplicacion web (Flask) + Base de datos relacional (SQLite)
-con autenticacion, roles y medidas de seguridad.
 
-Para correr:
-    python init_db.py      (solo la primera vez, crea la BD)
-    python app.py
-Luego abrir: http://127.0.0.1:5000
-
-Cuentas de demostracion (ver schema.sql):
+Cuentas de demostracion:
     admin  / admin123    -> rol administrador
     biblio / biblio123   -> rol bibliotecario
 """

@@ -1,7 +1,5 @@
 /* ============================================================
-   Biblioteca Escolar — sistema de diseño propio
-   Concepto: "Estante de biblioteca" — la navegación se ve
-   como libros apoyados en un estante.
+   Biblioteca Escolar
    ============================================================ */
 
 :root {
@@ -83,8 +81,6 @@ a { color: var(--rose); }
   flex: 1;
 }
 
-/* Cada enlace de navegacion = un "lomo de libro" con leve
-   inclinacion, como si estuvieran apoyados en un estante. */
 .book-link {
   display: block;
   text-decoration: none;
@@ -245,7 +241,6 @@ tr:last-child td { border-bottom: none; }
 tr:hover td { background: #FFF8FA; }
 .empty-row td { text-align: center; color: var(--ink-soft); font-style: italic; padding: 2rem; font-weight: 400; }
 
-/* Columna de acciones: botones bien separados, nunca pegados */
 .actions {
   display: flex;
   gap: 0.6rem;

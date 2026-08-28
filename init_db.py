@@ -1,10 +1,3 @@
-"""
-Inicializa (o reinicia) la base de datos SQLite 'biblioteca.db'
-a partir del archivo schema.sql.
-
-Ejecutar una sola vez antes de correr la app:
-    python init_db.py
-"""
 import sqlite3
 
 DB_NAME = "biblioteca.db"

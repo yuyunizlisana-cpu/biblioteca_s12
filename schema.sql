@@ -1,6 +1,5 @@
 -- ============================================================
 -- Sistema de Gestion de Biblioteca Escolar
--- Script de creacion de la base de datos relacional (SQLite)
 -- ============================================================
 
 DROP TABLE IF EXISTS prestamos;
@@ -9,10 +8,10 @@ DROP TABLE IF EXISTS autores;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS cuentas;
 
--- Cuentas del sistema (login del personal del colegio, NO son los
--- estudiantes que piden libros prestados -- esos van en "usuarios").
--- Las contrasenas nunca se guardan en texto plano: se guarda un hash
+-- Cuentas del sistema (login del personal del colegio).
+-- Las contrasenas no se guardan en texto plano: se guarda un hash
 -- generado con werkzeug.security (algoritmo scrypt).
+
 CREATE TABLE cuentas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_completo TEXT NOT NULL,
@@ -28,7 +27,7 @@ CREATE TABLE autores (
     nacionalidad TEXT
 );
 
--- Tabla de libros (relacion N:1 con autores)
+-- Tabla de libros
 CREATE TABLE libros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL,
@@ -45,7 +44,7 @@ CREATE TABLE usuarios (
     curso TEXT
 );
 
--- Tabla de prestamos (relacion N:1 con libros y N:1 con usuarios)
+-- Tabla de prestamos
 CREATE TABLE prestamos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     libro_id INTEGER NOT NULL,
@@ -58,11 +57,10 @@ CREATE TABLE prestamos (
 );
 
 -- ============================================================
--- Datos de ejemplo (opcional, para probar la app de inmediato)
+-- Datos de ejemplo
 -- ============================================================
 
 -- ============================================================
--- Cuentas de demostracion (CAMBIAR O ELIMINAR antes de un uso real)
 -- admin / admin123        -> rol administrador
 -- biblio / biblio123      -> rol bibliotecario
 -- ============================================================
